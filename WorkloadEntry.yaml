@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1beta1
+kind: WorkloadEntry
+metadata:
+  name: migration-demo-vm
+  namespace: default
+spec:
+  address: "host.k3d.internal"  # k3d's way to reach host machine
+  ports:
+    http: 3000
+  labels:
+    app: migration-demo
+    version: vm
