@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: migration-demo-k8s
+  labels:
+    app: migration-demo
+    version: k8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: migration-demo
+      version: k8s
+  template:
+    metadata:
+      labels:
+        app: migration-demo
+        version: k8s
+    spec:
+      containers:
+      - name: migration-demo
+        image: migration-demo:v1.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PLATFORM
+          value: "Kubernetes"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: migration-demo-service
+spec:
+  ports:
+  - port: 3000
+    name: http
+  selector:
+    app: migration-demo
