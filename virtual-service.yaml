@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: migration-demo-vs
+spec:
+  hosts:
+  - migration-demo-service
+  http:
+  - match:
+    - headers:
+        canary:
+          exact: "true"
+    route:
+    - destination:
+        host: migration-demo-service
+        subset: k8s
+  - route:
+    - destination:
+        host: migration-demo-service
+        subset: vm
+      weight: 80
+    - destination:
+        host: migration-demo-service
+        subset: k8s
+      weight: 20
