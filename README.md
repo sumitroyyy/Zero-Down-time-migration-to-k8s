@@ -188,7 +188,7 @@ kubectl exec -it test-client -- telnet host.k3d.internal 3000
 
 ## 📖 Detailed Guide
 
-Read the complete tutorial: [Zero-Downtime VM to Kubernetes Migration with Istio](https://dev.to/yourusername/your-blog-post-link)
+Read the complete tutorial: https://dev.to/sumit_roy9007/zero-downtime-vm-to-kubernetes-migration-with-istio-a-complete-production-guide-j1d
 
 ## 🤝 Contributing
 
