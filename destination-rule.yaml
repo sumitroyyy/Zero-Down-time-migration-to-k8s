@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: migration-demo-destination
+spec:
+  host: migration-demo-service
+  subsets:
+  - name: vm
+    labels:
+      version: vm
+  - name: k8s
+    labels:
+      version: k8s
