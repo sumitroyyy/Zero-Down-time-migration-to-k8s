@@ -1,0 +1,21 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: migration-demo-vm-service
+  namespace: default
+spec:
+  hosts:
+  - migration-demo-vm.local
+  ports:
+  - number: 3000
+    name: http
+    protocol: HTTP
+  location: MESH_EXTERNAL
+  resolution: STATIC
+  endpoints:
+  - address: "host.k3d.internal"
+    ports:
+      http: 3000
+    labels:
+      app: migration-demo
+      version: vm
